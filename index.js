@@ -42,9 +42,9 @@ const run = async () => {
 
         //UPDATE API
         app.put( '/rooms/:id', async ( req, res ) => {
-            const roomKey = req.params.key;
+            const roomId = req.params.id;
             const updatedRoom = req.body;
-            const filter = { key: roomKey };
+            const filter = { _id: ObjectId( roomId ) };
             const options = { upsert: true };
             const updateDoc = {
                 $set: {
