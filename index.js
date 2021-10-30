@@ -44,7 +44,7 @@ const run = async () => {
         app.put( '/rooms/:id', async ( req, res ) => {
             const roomKey = req.params.key;
             const updatedRoom = req.body;
-            const filter = { key: key };
+            const filter = { key: roomKey };
             const options = { upsert: true };
             const updateDoc = {
                 $set: {
