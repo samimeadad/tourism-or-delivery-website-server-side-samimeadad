@@ -61,7 +61,6 @@ const run = async () => {
             const id = req.params.id;
             const query = { _id: ObjectId( id ) };
             const result = await roomsCollection.deleteOne( query );
-            console.log( 'deleting user', result );
             res.json( result );
         } )
     }
