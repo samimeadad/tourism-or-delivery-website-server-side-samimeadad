@@ -52,7 +52,7 @@ const run = async () => {
                 },
             };
 
-            const result = await roomCollection.updateOne( filter, updateDoc, options );
+            const result = await roomsCollection.updateOne( filter, updateDoc, options );
             res.json( result );
         } )
 
