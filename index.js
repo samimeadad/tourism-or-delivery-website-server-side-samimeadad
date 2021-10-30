@@ -39,6 +39,15 @@ const run = async () => {
             console.log( result );
             res.json( result );
         } );
+
+        //DELETE API
+        app.delete( '/rooms/:id', async ( req, res ) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId( id ) };
+            const result = await roomsCollection.deleteOne( query );
+            console.log( 'deleting user', result );
+            res.json( result );
+        } )
     }
     finally {
         // await client.close();
