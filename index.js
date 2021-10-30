@@ -40,6 +40,22 @@ const run = async () => {
             res.json( result );
         } );
 
+        //UPDATE API
+        app.put( '/rooms/:id', async ( req, res ) => {
+            const roomId = req.params.id;
+            const updatedRoom = req.body;
+            const filter = { _id: ObjectId( roomId ) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    status: updatedRoom.status
+                },
+            };
+
+            const result = await roomCollection.updateOne( filter, updateDoc, options );
+            res.json( result );
+        } )
+
         //DELETE API
         app.delete( '/rooms/:id', async ( req, res ) => {
             const id = req.params.id;
