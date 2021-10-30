@@ -29,6 +29,16 @@ const run = async () => {
             const rooms = await cursor.toArray();
             res.send( rooms );
         } );
+
+        //POST API (Add a Room)
+        app.post( '/rooms', async ( req, res ) => {
+            const room = req.body;
+            console.log( 'hit the post API', room );
+
+            const result = await roomsCollection.insertOne( room );
+            console.log( result );
+            res.json( result );
+        } );
     }
     finally {
         // await client.close();
