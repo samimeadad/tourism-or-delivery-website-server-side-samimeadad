@@ -5,22 +5,28 @@ const port = process.env.PORT || 5000;
 const cors = require( 'cors' );
 const ObjectId = require( 'mongodb' ).ObjectId;
 
-//middleware
+//middleware for cross origin problem and json formatting
 app.use( cors() );
 app.use( express.json() );
 
+//Import mongodb
 const { MongoClient } = require( 'mongodb' );
 
+//define the database URI with user name and password
 const uri = `mongodb+srv://${ process.env.DB_USER }:${ process.env.DB_PASS }@cluster0.iezc6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
+//define the mongodb client for database operations
 const client = new MongoClient( uri, { useNewUrlParser: true, useUnifiedTopology: true } );
 
 const run = async () => {
     try {
+        //connect the client with database
         await client.connect();
-        console.log( 'database connected' );
 
+        //define the mongodb database
         const database = client.db( "bayViewHotel" );
+
+        //define the collection for Room and Booking
         const roomsCollection = database.collection( "rooms" );
         const bookingsCollection = database.collection( "bookings" );
 
