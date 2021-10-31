@@ -31,10 +31,24 @@ const run = async () => {
             res.send( rooms );
         } );
 
+        //GET Booking API
+        app.get( '/bookings', async ( req, res ) => {
+            const cursor = bookingsCollection.find( {} );
+            const bookings = await cursor.toArray();
+            res.send( bookings );
+        } );
+
         //POST API (Add a Room)
         app.post( '/rooms', async ( req, res ) => {
             const room = req.body;
             const result = await roomsCollection.insertOne( room );
+            res.json( result );
+        } );
+
+        //POST API (Add a Booking)
+        app.post( '/bookings', async ( req, res ) => {
+            const booking = req.body;
+            const result = await bookingsCollection.insertOne( booking );
             res.json( result );
         } );
 
@@ -54,29 +68,7 @@ const run = async () => {
             res.json( result );
         } );
 
-        //DELETE a Room API
-        app.delete( '/rooms/:id', async ( req, res ) => {
-            const id = req.params.id;
-            const query = { _id: ObjectId( id ) };
-            const result = await roomsCollection.deleteOne( query );
-            res.json( result );
-        } );
-
-        //POST API (Add a Booking)
-        app.post( '/bookings', async ( req, res ) => {
-            const booking = req.body;
-            const result = await bookingsCollection.insertOne( booking );
-            res.json( result );
-        } );
-
-        //GET Booking API
-        app.get( '/bookings', async ( req, res ) => {
-            const cursor = bookingsCollection.find( {} );
-            const bookings = await cursor.toArray();
-            res.send( bookings );
-        } );
-
-        //UPDATE Room API
+        //UPDATE Booking API
         app.put( '/bookings/:id', async ( req, res ) => {
             const bookingId = req.params.id;
             const updatedBooking = req.body;
@@ -89,6 +81,22 @@ const run = async () => {
             };
 
             const result = await roomsCollection.updateOne( filter, updateDoc, options );
+            res.json( result );
+        } );
+
+        //DELETE a Room API
+        app.delete( '/rooms/:id', async ( req, res ) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId( id ) };
+            const result = await roomsCollection.deleteOne( query );
+            res.json( result );
+        } );
+
+        //DELETE a Booking API
+        app.delete( '/bookings/:id', async ( req, res ) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId( id ) };
+            const result = await bookingsCollection.deleteOne( query );
             res.json( result );
         } );
     }
