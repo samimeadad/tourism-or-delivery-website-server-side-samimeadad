@@ -68,6 +68,29 @@ const run = async () => {
             const result = await bookingsCollection.insertOne( booking );
             res.json( result );
         } );
+
+        //GET Booking API
+        app.get( '/bookings', async ( req, res ) => {
+            const cursor = bookingsCollection.find( {} );
+            const bookings = await cursor.toArray();
+            res.send( bookings );
+        } );
+
+        //UPDATE Room API
+        app.put( '/bookings/:id', async ( req, res ) => {
+            const bookingId = req.params.id;
+            const updatedBooking = req.body;
+            const filter = { _id: ObjectId( bookingId ) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    status: "approved"
+                },
+            };
+
+            const result = await roomsCollection.updateOne( filter, updateDoc, options );
+            res.json( result );
+        } );
     }
     finally {
         // await client.close();
