@@ -22,8 +22,9 @@ const run = async () => {
 
         const database = client.db( "bayViewHotel" );
         const roomsCollection = database.collection( "rooms" );
+        const bookingsCollection = database.collection( "bookings" );
 
-        //GET API
+        //GET Room API
         app.get( '/rooms', async ( req, res ) => {
             const cursor = roomsCollection.find( {} );
             const rooms = await cursor.toArray();
@@ -33,14 +34,11 @@ const run = async () => {
         //POST API (Add a Room)
         app.post( '/rooms', async ( req, res ) => {
             const room = req.body;
-            console.log( 'hit the post API', room );
-
             const result = await roomsCollection.insertOne( room );
-            console.log( result );
             res.json( result );
         } );
 
-        //UPDATE API
+        //UPDATE Room API
         app.put( '/rooms/:id', async ( req, res ) => {
             const roomId = req.params.id;
             const updatedRoom = req.body;
@@ -54,15 +52,22 @@ const run = async () => {
 
             const result = await roomsCollection.updateOne( filter, updateDoc, options );
             res.json( result );
-        } )
+        } );
 
-        //DELETE API
+        //DELETE a Room API
         app.delete( '/rooms/:id', async ( req, res ) => {
             const id = req.params.id;
             const query = { _id: ObjectId( id ) };
             const result = await roomsCollection.deleteOne( query );
             res.json( result );
-        } )
+        } );
+
+        //POST API (Add a Booking)
+        app.post( '/bookings', async ( req, res ) => {
+            const booking = req.body;
+            const result = await bookingsCollection.insertOne( booking );
+            res.json( result );
+        } );
     }
     finally {
         // await client.close();
