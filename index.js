@@ -71,12 +71,12 @@ const run = async () => {
         //UPDATE Booking API
         app.put( '/bookings/:id', async ( req, res ) => {
             const bookingId = req.params.id;
-            // const updatedBooking = req.body;
+            const updatedBooking = req.body;
             const filter = { _id: ObjectId( bookingId ) };
             const options = { upsert: true };
             const updateDoc = {
                 $set: {
-                    status: "approved"
+                    status: updatedBooking.status
                 },
             };
 
