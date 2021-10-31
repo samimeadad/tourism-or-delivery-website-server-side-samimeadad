@@ -117,9 +117,9 @@ const run = async () => {
 run().catch( console.dir );
 
 app.get( '/', ( req, res ) => {
-    res.send( 'Running Tourism Local Server' );
+    res.send( 'Running Bay View Hotel Local Server' );
 } )
 
 app.listen( port, () => {
-    console.log( `Tourism app server is listening at http://localhost:${ port }` )
+    console.log( `Tourism app server is listening at https://guarded-peak-27154.herokuapp.com:${ port }` )
 } )
