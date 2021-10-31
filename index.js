@@ -63,6 +63,7 @@ const run = async () => {
                     type: updatedRoom.type,
                     description: updatedRoom.description,
                     price: updatedRoom.price
+
                 },
             };
 
@@ -71,20 +72,20 @@ const run = async () => {
         } );
 
         //UPDATE Booking API
-        // app.put( '/bookings/:id', async ( req, res ) => {
-        //     const bookingId = req.params.id;
-        //     const updatedBooking = req.body;
-        //     const filter = { _id: ObjectId( bookingId ) };
-        //     const options = { upsert: true };
-        //     const updateDoc = {
-        //         $set: {
-        //             status: updatedBooking.status
-        //         },
-        //     };
+        app.put( '/bookings/:id', async ( req, res ) => {
+            const bookingId = req.params.id;
+            const updatedBooking = req.body;
+            const filter = { _id: ObjectId( bookingId ) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    status: updatedBooking.status
+                },
+            };
 
-        //     const result = await roomsCollection.updateOne( filter, updateDoc, options );
-        //     res.json( result );
-        // } );
+            const result = await bookingsCollection.updateOne( filter, updateDoc, options );
+            res.json( result );
+        } );
 
         //DELETE a Room API
         app.delete( '/rooms/:id', async ( req, res ) => {
